@@ -1,0 +1,19 @@
+.cards {
+  width: 50%;
+  height: 80%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 5px;
+}
+.card {
+  width: calc(20% - 10px);
+  height: calc(30% - 10px);
+  margin: 5px;
+  position: relative;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  /* background-color: black;
+    border: 2px solid rgb(61, 51, 172); */
+  border-radius: 3px;
+  cursor: pointer;
+}
