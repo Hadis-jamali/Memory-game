@@ -4,7 +4,6 @@
   box-sizing: border-box;
 }
 body {
-  /* background-color: #d7d7d7; */
   background-image: url("../images/background.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -13,8 +12,6 @@ body {
   background-blend-mode: multiply;
   display: flex;
   justify-content: center;
-  /* align-items: center;
-  height: 100vh; */
 }
 h1 {
   color: #bbbac3;
@@ -32,12 +29,13 @@ a {
   margin: 30px;
   padding: 20px 50px;
   font-size: 1.5rem;
-  color: #6757d9;
+  font-weight: bold;
+  color: #020103;
   text-decoration: none;
   border-radius: 20px;
   transition: all 0.2s ease-in;
 }
 a:hover {
-  background-color: #6757d9;
+  background-color: gray;
   color: #fff;
 }
