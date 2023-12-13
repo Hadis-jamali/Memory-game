@@ -1,14 +1,14 @@
 const cardsContainer = document.querySelector(".cards");
 
 const images = [
-  { id: 1, name: "graduated-emoji", url: "./images/front-pic1.png" },
-  { id: 2, name: "thinking-imoji", url: "./images/front-pic2.png" },
-  { id: 3, name: "crying-emoji", url: "./images/front-pic3.png" },
-  { id: 4, name: "drink-emoji", url: "./images/front-pic4.png" },
-  { id: 5, name: "winking-emoji", url: "./images/front-pic5.png" },
-  { id: 6, name: "dream-emoji", url: "./images/front-pic6.png" },
-  { id: 7, name: "wondering-emoji", url: "./images/front-pic7.png" },
-  { id: 8, name: "smile-emoji", url: "./images/front-pic8.png" },
+  { id: 1, name: "graduated-emoji", url: "./images/front-pic1.jpg" },
+  { id: 2, name: "thinking-emoji", url: "./images/front-pic2.jpg" },
+  { id: 3, name: "crying-emoji", url: "./images/front-pic3.jpg" },
+  { id: 4, name: "drink-emoji", url: "./images/front-pic4.jpg" },
+  { id: 5, name: "winking-emoji", url: "./images/front-pic5.jpg" },
+  { id: 6, name: "dream-emoji", url: "./images/front-pic6.jpg" },
+  { id: 7, name: "wondering-emoji", url: "./images/front-pic7.jpg" },
+  { id: 8, name: "smile-emoji", url: "./images/front-pic8.jpg" },
 ];
 
 const imagePickList = [...images, ...images];
@@ -23,7 +23,7 @@ function buildCard(image) {
   img.classList.add("card-img");
   img.setAttribute("src", "./images/back-pic.jpg");
 
-  img.addEventListener("click", () => {
+  element.addEventListener("click", () => {
     if (img.getAttribute("src") === image.url) {
       img.setAttribute("src", "./images/back-pic.jpg");
     } else {
@@ -35,10 +35,18 @@ function buildCard(image) {
   return element;
 }
 
-for (i = 0; i < cardCount; i++) {
-  const randomIndex = Math.floor(Math.random() * imagePickList.length);
-  const image = imagePickList[randomIndex];
-  const card = buildCard(image);
-  imagePickList.splice(randomIndex, 1);
-  cardsContainer.appendChild(card);
+function createCardGrid() {
+  for (i = 0; i < cardCount; i++) {
+    const randomIndex = getRandomIndex();
+    const image = imagePickList[randomIndex];
+    const card = buildCard(image);
+    imagePickList.splice(randomIndex, 1);
+    cardsContainer.appendChild(card);
+  }
 }
+
+function getRandomIndex() {
+  return Math.floor(Math.random() * imagePickList.length);
+}
+
+createCardGrid();

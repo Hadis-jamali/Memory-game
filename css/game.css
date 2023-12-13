@@ -37,9 +37,10 @@ body {
   border-radius: 5px;
   background-color: rgb(93, 92, 92);
   color: aliceblue;
-  font-size: 1rem;
+  font-size: 13px;
   cursor: pointer;
 }
 #reset-btn:hover {
-  background-color: #af52b4;
+  background-color: #d1c21a;
+  color: black;
 }

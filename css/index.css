@@ -13,7 +13,7 @@ body {
   display: flex;
   justify-content: center;
 }
-h1 {
+#title {
   color: #bbbac3;
   margin: 5rem;
   padding-top: 2rem;
