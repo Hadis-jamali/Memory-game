@@ -1,4 +1,6 @@
 const cardsContainer = document.querySelector(".cards");
+const timerDisplay = document.getElementById("timer");
+const resetBtn = document.getElementById("reset-btn");
 
 const images = [
   { id: 1, name: "graduated-emoji", url: "./images/front-pic1.jpg" },
@@ -12,6 +14,8 @@ const images = [
 ];
 
 const imagePickList = [...images, ...images];
+let firstPic = null;
+let counter = 0;
 
 const cardCount = imagePickList.length;
 
@@ -24,10 +28,30 @@ function buildCard(image) {
   img.setAttribute("src", "./images/back-pic.jpg");
 
   element.addEventListener("click", () => {
+    startTimer();
+
     if (img.getAttribute("src") === image.url) {
       img.setAttribute("src", "./images/back-pic.jpg");
     } else {
       img.setAttribute("src", image.url);
+      img.setAttribute("name", image.name);
+      img.setAttribute("id", image.id);
+
+      //the functionality so that once 2 cards are flipped, they stay flipped for X seconds,
+      //after which they flip back down automatically and implement a counter for how many times in total you have flipped a card.
+      counter++;
+
+      if (firstPic === null) {
+        firstPic = img;
+      } else {
+        setTimeout(() => {
+          if (Number(firstPic.getAttribute("id")) !== image.id) {
+            img.setAttribute("src", "./images/back-pic.jpg");
+            firstPic.setAttribute("src", "./images/back-pic.jpg");
+          }
+          firstPic = null;
+        }, 600);
+      }
     }
   });
 
@@ -35,6 +59,7 @@ function buildCard(image) {
   return element;
 }
 
+//Random card
 function createCardGrid() {
   for (i = 0; i < cardCount; i++) {
     const randomIndex = getRandomIndex();
@@ -48,5 +73,46 @@ function createCardGrid() {
 function getRandomIndex() {
   return Math.floor(Math.random() * imagePickList.length);
 }
-
 createCardGrid();
+
+//how much time has passed since you first clicked on a card.
+let startTime;
+let timerInterval;
+let clickedCards = 0;
+
+function startTimer() {
+  if (!startTime) {
+    startTime = Date.now();
+    timerInterval = setInterval(updateTimer, 1000);
+  }
+
+  // Check if all cards have been clicked
+  if (clickedCards === cardCount) {
+    clearInterval(timerInterval);
+  }
+}
+
+function updateTimer() {
+  const currentTime = Date.now();
+  const timePassed = Math.floor((currentTime - startTime) / 1000);
+  timerDisplay.innerText = `Timer: ${timePassed} seconds`;
+}
+
+//Reset Button
+
+function resetGame() {
+  clearInterval(timerInterval);
+  startTime = null;
+  clickedCards = 0;
+  timerDisplay.innerText = "Timer: 0 seconds";
+  resetCards();
+}
+
+function resetCards() {
+  const items = document.querySelectorAll(".cards div");
+  items.forEach((element) => {
+    element.children[0].setAttribute("src", "./images/back-pic.jpg");
+  });
+}
+
+resetBtn.addEventListener("click", resetGame);
