@@ -26,7 +26,7 @@ function buildCard(image) {
 
   element.addEventListener("click", () => {
     startTimer();
-
+    element.classList.add("flip-card");
     if (img.getAttribute("src") === image.url) {
       img.setAttribute("src", "./images/back-pic.jpg");
     } else {
@@ -45,6 +45,8 @@ function buildCard(image) {
           if (Number(firstPic.getAttribute("id")) !== image.id) {
             img.setAttribute("src", "./images/back-pic.jpg");
             firstPic.setAttribute("src", "./images/back-pic.jpg");
+            element.classList.remove("flip-card");
+            firstPic.parentNode.classList.remove("flip-card");
           }
           firstPic = null;
         }, 600);
