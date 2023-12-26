@@ -1,7 +1,7 @@
 const cardsContainer = document.querySelector(".cards");
 const timerDisplay = document.getElementById("timer");
 const resetBtn = document.getElementById("reset-btn");
-
+let cardCount = 0;
 const images = [
   { id: 1, name: "graduated-emoji", url: "./images/front-pic1.jpg" },
   { id: 2, name: "thinking-emoji", url: "./images/front-pic2.jpg" },
@@ -13,11 +13,8 @@ const images = [
   { id: 8, name: "smile-emoji", url: "./images/front-pic8.jpg" },
 ];
 
-const imagePickList = [...images, ...images];
 let firstPic = null;
 let counter = 0;
-
-const cardCount = imagePickList.length;
 
 function buildCard(image) {
   const element = document.createElement("div");
@@ -61,8 +58,10 @@ function buildCard(image) {
 
 //Random card
 function createCardGrid() {
+  const imagePickList = [...images, ...images];
+  cardCount = imagePickList.length;
   for (i = 0; i < cardCount; i++) {
-    const randomIndex = getRandomIndex();
+    const randomIndex = getRandomIndex(imagePickList);
     const image = imagePickList[randomIndex];
     const card = buildCard(image);
     imagePickList.splice(randomIndex, 1);
@@ -70,7 +69,7 @@ function createCardGrid() {
   }
 }
 
-function getRandomIndex() {
+function getRandomIndex(imagePickList) {
   return Math.floor(Math.random() * imagePickList.length);
 }
 createCardGrid();
@@ -95,7 +94,12 @@ function startTimer() {
 function updateTimer() {
   const currentTime = Date.now();
   const timePassed = Math.floor((currentTime - startTime) / 1000);
-  timerDisplay.innerText = `Timer: ${timePassed} seconds`;
+  const date = new Date(timePassed * 1000);
+  const hours = String(date.getUTCHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  const seconds = String(date.getSeconds()).padStart(2, "0");
+
+  timerDisplay.innerText = `${hours}:${minutes}:${seconds}`;
 }
 
 //Reset Button
@@ -104,15 +108,17 @@ function resetGame() {
   clearInterval(timerInterval);
   startTime = null;
   clickedCards = 0;
-  timerDisplay.innerText = "Timer: 0 seconds";
+  timerDisplay.innerText = "00:00:00";
   resetCards();
 }
 
 function resetCards() {
-  const items = document.querySelectorAll(".cards div");
-  items.forEach((element) => {
-    element.children[0].setAttribute("src", "./images/back-pic.jpg");
-  });
+  const items = document.querySelector(".cards");
+  items.innerHTML = "";
+  createCardGrid();
+  // items.forEach((element) => {
+  //   element.children[0].setAttribute("src", "./images/back-pic.jpg");
+  // });
 }
 
 resetBtn.addEventListener("click", resetGame);
