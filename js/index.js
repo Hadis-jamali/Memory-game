@@ -120,7 +120,8 @@ function resetGame() {
 function resetCards() {
   const items = document.querySelector(".cards");
   items.innerHTML = "";
-  createCardGrid();
+
+  getData();
   // items.forEach((element) => {
   //   element.children[0].setAttribute("src", "./images/back-pic.jpg");
   // });
