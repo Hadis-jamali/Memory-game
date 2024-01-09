@@ -2,16 +2,20 @@ const cardsContainer = document.querySelector(".cards");
 const timerDisplay = document.getElementById("timer");
 const resetBtn = document.getElementById("reset-btn");
 let cardCount = 0;
-const images = [
-  { id: 1, name: "graduated-emoji", url: "./images/front-pic1.jpg" },
-  { id: 2, name: "thinking-emoji", url: "./images/front-pic2.jpg" },
-  { id: 3, name: "crying-emoji", url: "./images/front-pic3.jpg" },
-  { id: 4, name: "drink-emoji", url: "./images/front-pic4.jpg" },
-  { id: 5, name: "winking-emoji", url: "./images/front-pic5.jpg" },
-  { id: 6, name: "dream-emoji", url: "./images/front-pic6.jpg" },
-  { id: 7, name: "wondering-emoji", url: "./images/front-pic7.jpg" },
-  { id: 8, name: "smile-emoji", url: "./images/front-pic8.jpg" },
-];
+
+//json
+
+function getData() {
+  fetch(
+    "https://raw.githubusercontent.com/Hadis-jamali/Hadis.github.io/main/data/memory-cards.json"
+  )
+    .then((Response) => Response.json())
+    .then((json) => {
+      console.log(json);
+      createCardGrid(json);
+    });
+}
+getData();
 
 let firstPic = null;
 let counter = 0;
@@ -59,7 +63,7 @@ function buildCard(image) {
 }
 
 //Random card
-function createCardGrid() {
+function createCardGrid(images) {
   const imagePickList = [...images, ...images];
   cardCount = imagePickList.length;
   for (i = 0; i < cardCount; i++) {
@@ -74,7 +78,6 @@ function createCardGrid() {
 function getRandomIndex(imagePickList) {
   return Math.floor(Math.random() * imagePickList.length);
 }
-createCardGrid();
 
 //how much time has passed since you first clicked on a card.
 let startTime;
