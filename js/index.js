@@ -9,7 +9,7 @@ function getData() {
   fetch(
     "https://raw.githubusercontent.com/Hadis-jamali/Hadis-jamali.github.io/main/data/memory-cards.json"
   )
-    .then((Response) => Response.json())
+    .then((response) => response.json())
     .then((json) => {
       console.log(json);
       createCardGrid(json);
