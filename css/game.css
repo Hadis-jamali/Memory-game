@@ -40,14 +40,14 @@ body {
   padding: 10px 10px;
   font-size: 20px;
   font-weight: bold;
-  color: #5a585b;
+  color: #525053;
   text-decoration: none;
   border-radius: 15px;
   border: 2px solid black;
   cursor: pointer;
 }
 #reset-btn:hover {
-  background-color: #71716f;
+  background-color: #a8a8a4;
   color: black;
 }
 #timer {
