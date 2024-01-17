@@ -35,6 +35,7 @@ async function getData() {
 getData();
 
 let firstPic = null;
+let secondPic = null;
 let counter = 0;
 
 function buildCard(image) {
@@ -47,9 +48,13 @@ function buildCard(image) {
 
   element.addEventListener("click", () => {
     startTimer();
+    if (secondPic !== null) {
+      return;
+    }
     element.classList.add("flip-card");
     if (img.getAttribute("src") === image.url) {
       img.setAttribute("src", "./images/back-pic.jpg");
+      
     } else {
       img.setAttribute("src", image.url);
       img.setAttribute("name", image.name);
@@ -62,6 +67,7 @@ function buildCard(image) {
       if (firstPic === null) {
         firstPic = img;
       } else {
+        secondPic = img;
         setTimeout(() => {
           if (Number(firstPic.getAttribute("id")) !== image.id) {
             img.setAttribute("src", "./images/back-pic.jpg");
@@ -70,7 +76,8 @@ function buildCard(image) {
             firstPic.parentNode.classList.remove("flip-card");
           }
           firstPic = null;
-        }, 600);
+          secondPic = null;
+        }, 1000);
       }
     }
   });
