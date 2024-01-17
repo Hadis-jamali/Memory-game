@@ -48,13 +48,16 @@ function buildCard(image) {
 
   element.addEventListener("click", () => {
     startTimer();
-    if (secondPic !== null) {
+    if (secondPic !== null || element.classList.contains("match")) {
       return;
     }
+
     element.classList.add("flip-card");
+
     if (img.getAttribute("src") === image.url) {
       img.setAttribute("src", "./images/back-pic.jpg");
-      
+      firstPic = null;
+      element.classList.toggle("flip-card");
     } else {
       img.setAttribute("src", image.url);
       img.setAttribute("name", image.name);
@@ -74,6 +77,9 @@ function buildCard(image) {
             firstPic.setAttribute("src", "./images/back-pic.jpg");
             element.classList.remove("flip-card");
             firstPic.parentNode.classList.remove("flip-card");
+          } else {
+            element.classList.add("match");
+            firstPic.parentNode.classList.add("match");
           }
           firstPic = null;
           secondPic = null;
