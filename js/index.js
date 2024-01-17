@@ -3,17 +3,34 @@ const timerDisplay = document.getElementById("timer");
 const resetBtn = document.getElementById("reset-btn");
 let cardCount = 0;
 
-//json
+//Api
 
-function getData() {
-  fetch(
-    "https://raw.githubusercontent.com/Hadis-jamali/Hadis-jamali.github.io/main/data/memory-cards.json"
-  )
-    .then((response) => response.json())
-    .then((json) => {
-      console.log(json);
-      createCardGrid(json);
-    });
+// function getData() {
+//   fetch(
+//     "https://raw.githubusercontent.com/Hadis-jamali/Hadis-jamali.github.io/main/data/memory-cards.json"
+//   )
+//     .then((response) => response.json())
+//     .then((json) => {
+//       console.log(json);
+//       createCardGrid(json);
+//     });
+// }
+// getData();
+
+async function getData() {
+  try {
+    const response = await fetch(
+      "https://raw.githubusercontent.com/Hadis-jamali/Hadis-jamali.github.io/main/data/memory-cards.json"
+    );
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data. Status: ${response.status}`);
+    }
+    const json = await response.json();
+
+    createCardGrid(json);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
 }
 getData();
 
