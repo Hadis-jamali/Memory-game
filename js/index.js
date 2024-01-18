@@ -3,21 +3,27 @@ const timerDisplay = document.getElementById("timer");
 const resetBtn = document.getElementById("reset-btn");
 let cardCount = 0;
 
-//json
+//Api
 
-function getData() {
-  fetch(
-    "https://raw.githubusercontent.com/Hadis-jamali/Hadis-jamali.github.io/main/data/memory-cards.json"
-  )
-    .then((response) => response.json())
-    .then((json) => {
-      console.log(json);
-      createCardGrid(json);
-    });
+async function getData() {
+  try {
+    const response = await fetch(
+      "https://raw.githubusercontent.com/Hadis-jamali/Hadis-jamali.github.io/main/data/memory-cards.json"
+    );
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data. Status: ${response.status}`);
+    }
+    const json = await response.json();
+
+    createCardGrid(json);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
 }
 getData();
 
 let firstPic = null;
+let secondPic = null;
 let counter = 0;
 
 function buildCard(image) {
@@ -30,9 +36,16 @@ function buildCard(image) {
 
   element.addEventListener("click", () => {
     startTimer();
+    if (secondPic !== null || element.classList.contains("match")) {
+      return;
+    }
+
     element.classList.add("flip-card");
+
     if (img.getAttribute("src") === image.url) {
       img.setAttribute("src", "./images/back-pic.jpg");
+      firstPic = null;
+      element.classList.toggle("flip-card");
     } else {
       img.setAttribute("src", image.url);
       img.setAttribute("name", image.name);
@@ -45,15 +58,20 @@ function buildCard(image) {
       if (firstPic === null) {
         firstPic = img;
       } else {
+        secondPic = img;
         setTimeout(() => {
           if (Number(firstPic.getAttribute("id")) !== image.id) {
             img.setAttribute("src", "./images/back-pic.jpg");
             firstPic.setAttribute("src", "./images/back-pic.jpg");
             element.classList.remove("flip-card");
             firstPic.parentNode.classList.remove("flip-card");
+          } else {
+            element.classList.add("match");
+            firstPic.parentNode.classList.add("match");
           }
           firstPic = null;
-        }, 600);
+          secondPic = null;
+        }, 1000);
       }
     }
   });
