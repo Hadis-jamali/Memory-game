@@ -67,7 +67,7 @@ function buildCard(image) {
             element.classList.add("match");
             firstPic.parentNode.classList.add("match");
             const isWin = cardsContainer.querySelectorAll(".match").length === cardCount;
-            win();
+            // win();
             if (isWin) {
               win();
             }
