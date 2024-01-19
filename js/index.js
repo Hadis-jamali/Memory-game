@@ -1,7 +1,8 @@
 const cardsContainer = document.querySelector(".cards");
 const timerDisplay = document.getElementById("timer");
 const resetBtn = document.getElementById("reset-btn");
-let cardCount = 0;
+const modalTitle = document.querySelector("#modal-title");
+const modal = document.querySelector("#modal");
 
 //Api
 
@@ -25,6 +26,9 @@ getData();
 let firstPic = null;
 let secondPic = null;
 let counter = 0;
+let isLose = false;
+let cardCount = 0;
+let stopTimer = false;
 
 function buildCard(image) {
   const element = document.createElement("div");
@@ -39,9 +43,7 @@ function buildCard(image) {
     if (secondPic !== null || element.classList.contains("match")) {
       return;
     }
-
     element.classList.add("flip-card");
-
     if (img.getAttribute("src") === image.url) {
       img.setAttribute("src", "./images/back-pic.jpg");
       firstPic = null;
@@ -50,11 +52,7 @@ function buildCard(image) {
       img.setAttribute("src", image.url);
       img.setAttribute("name", image.name);
       img.setAttribute("id", image.id);
-
-      //the functionality so that once 2 cards are flipped, they stay flipped for X seconds,
-      //after which they flip back down automatically and implement a counter for how many times in total you have flipped a card.
       counter++;
-
       if (firstPic === null) {
         firstPic = img;
       } else {
@@ -68,10 +66,15 @@ function buildCard(image) {
           } else {
             element.classList.add("match");
             firstPic.parentNode.classList.add("match");
+            const isWin = cardsContainer.querySelectorAll(".match").length === cardCount;
+            win();
+            if (isWin) {
+              win();
+            }
           }
           firstPic = null;
           secondPic = null;
-        }, 1000);
+        }, 600);
       }
     }
   });
@@ -79,6 +82,10 @@ function buildCard(image) {
   element.appendChild(img);
   return element;
 }
+document.querySelector("#play-again").addEventListener("click", function () {
+  modal.classList.remove("modal-open");
+  resetGame();
+});
 
 //Random card
 function createCardGrid(images) {
@@ -107,7 +114,6 @@ function startTimer() {
     startTime = Date.now();
     timerInterval = setInterval(updateTimer, 1000);
   }
-
   // Check if all cards have been clicked
   if (clickedCards === cardCount) {
     clearInterval(timerInterval);
@@ -115,6 +121,7 @@ function startTimer() {
 }
 
 function updateTimer() {
+  if (stopTimer) return;
   const currentTime = Date.now();
   const timePassed = Math.floor((currentTime - startTime) / 1000);
   const date = new Date(timePassed * 1000);
@@ -140,9 +147,12 @@ function resetCards() {
   items.innerHTML = "";
 
   getData();
-  // items.forEach((element) => {
-  //   element.children[0].setAttribute("src", "./images/back-pic.jpg");
-  // });
 }
 
 resetBtn.addEventListener("click", resetGame);
+
+function win() {
+  stopTimer = true;
+  modalTitle.innerHTML = "Congratulations 🥳 You win!";
+  modal.classList.add("modal-open");
+}
