@@ -41,10 +41,11 @@ body {
   font-size: 20px;
   font-weight: bold;
   color: #525053;
-  text-decoration: none;
+  /* text-decoration: none; */
   border-radius: 15px;
   border: 2px solid black;
   cursor: pointer;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 #reset-btn:hover {
   background-color: #a8a8a4;
@@ -102,7 +103,6 @@ body {
 .modal-container {
   text-align: center;
   align-items: center;
-  background-color: var(--white);
   border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -120,7 +120,7 @@ body {
   margin-bottom: 1rem;
 }
 .button {
-  background-color: var(--blue);
+  background-color: rgb(32, 32, 32);
   border: 0.15rem solid black;
   border-radius: 20px;
   color: white;
@@ -129,4 +129,11 @@ body {
   font-weight: 600;
   padding: 0.5rem 1rem;
   transition: all 270ms ease-in;
+}
+
+@media only screen and (max-width: 1200px) {
+  .cards {
+    width: 90%;
+    flex-wrap: wrap;
+  }
 }
