@@ -131,7 +131,7 @@ body {
   transition: all 270ms ease-in;
 }
 
-@media only screen and (max-width: 1200px) {
+ @media only screen and (max-width: 1200px) {
   .cards {
     width: 90%;
     flex-wrap: wrap;

@@ -151,6 +151,7 @@ function resetCards() {
 
 resetBtn.addEventListener("click", resetGame);
 
+//win modal
 function win() {
   stopTimer = true;
   modalTitle.innerHTML = "Congratulations 🥳 You win!";
