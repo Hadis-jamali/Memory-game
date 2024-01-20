@@ -41,10 +41,11 @@ body {
   font-size: 20px;
   font-weight: bold;
   color: #525053;
-  text-decoration: none;
+  /* text-decoration: none; */
   border-radius: 15px;
   border: 2px solid black;
   cursor: pointer;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 #reset-btn:hover {
   background-color: #a8a8a4;
@@ -76,5 +77,63 @@ body {
   }
   to {
     transform: rotateY(180deg);
+  }
+}
+
+/* Modal */
+.modal {
+  align-items: center;
+  backdrop-filter: blur(0.2rem);
+  background-color: rgba(0, 0, 0, 0.3);
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  opacity: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transform: translateY(100%);
+  transition: all 270ms ease-in;
+}
+.modal-open {
+  opacity: 1;
+  transform: translateY(0);
+}
+.modal-container {
+  text-align: center;
+  align-items: center;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  height: 12rem;
+  justify-content: center;
+  max-width: 20rem;
+  padding: 1rem;
+  width: 100%;
+}
+.modal-title {
+  color: rgb(254, 254, 254);
+  font-size: 4rem;
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+.button {
+  background-color: rgb(32, 32, 32);
+  border: 0.15rem solid black;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  font-size: 2rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  transition: all 270ms ease-in;
+}
+
+ @media only screen and (max-width: 1200px) {
+  .cards {
+    width: 90%;
+    flex-wrap: wrap;
   }
 }
