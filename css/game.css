@@ -120,10 +120,10 @@ body {
   margin-bottom: 1rem;
 }
 .button {
-  background-color: rgb(32, 32, 32);
-  border: 0.15rem solid black;
+  background-color: rgb(199, 170, 27);
+  border: 0.15rem solid rgb(21, 19, 8);
   border-radius: 20px;
-  color: white;
+  color: rgb(15, 14, 14);
   cursor: pointer;
   font-size: 2rem;
   font-weight: 600;
@@ -131,9 +131,19 @@ body {
   transition: all 270ms ease-in;
 }
 
- @media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1200px) {
   .cards {
     width: 90%;
     flex-wrap: wrap;
+  }
+  #reset-btn {
+    font-size: 15px;
+  }
+  #modal-title {
+    font-size: 2rem;
+  }
+  #play-again {
+    font-weight: 200;
+    font-size: 1.5rem;
   }
 }
