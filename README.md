@@ -1,7 +1,7 @@
 
 It's a Responsive Memory game with Javascript 
 
-Demo: https://emoji-memorygame.netlify.app
+Demo:https://emoji-memorygame.netlify.app
 
 ![memoryGame1](https://github.com/Hadis-jamali/Memory-game/assets/132214893/afe42861-4ff1-40c1-a7bc-5ce6a9f9cbbb)
 
